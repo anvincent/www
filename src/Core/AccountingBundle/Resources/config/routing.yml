@@ -1,0 +1,246 @@
+# Top
+CoreAccountingBundle_home:
+    pattern:  /
+    defaults: { _controller: CoreAccountingBundle:Default:index }
+    requirements:
+        _method:  GET
+
+## Accounting app
+CoreAccountingBundle_accounting_home:
+    pattern:  /accounting/index
+    defaults: { _controller: CoreAccountingBundle:Default:accounting }
+    requirements:
+        _method:  GET
+
+### Accounting Transactions
+
+#### Manual Journal Entries
+CoreAccountingBundle_transactions_gltrans_add:
+    pattern:	/accounting/transactions/journal/add/{typeno}
+    defaults:	{ _controller:CoreAccountingBundle:Transactions:addManualTransaction, typeno: 0 }
+    requirements:
+        _method:  GET|POST
+
+#### Manual Journal Adjustments
+CoreAccountingBundle_transactions_gltrans_search:
+    pattern:	/accounting/transactions/journal/search
+    defaults:	{ _controller:CoreAccountingBundle:Transactions:searchManualTransaction }
+    requirements:
+        _method:  GET|POST
+        
+CoreAccountingBundle_transactions_gltrans_edit:
+    pattern:	/accounting/transactions/journal/edit/{typeno}
+    defaults:	{ _controller:CoreAccountingBundle:Transactions:editManualTransaction }
+    requirements:
+        _method:  GET|POST
+
+#### Batch Journal Entries
+CoreAccountingBundle_transactions_batch_menu:
+    pattern:	/accounting/transactions/journal/batch/
+    defaults:	{ _controller:CoreAccountingBundle:Transactions:showBatchTransaction }
+    requirements:
+        _method:  GET|POST
+
+CoreAccountingBundle_transactions_batch_edit:
+    pattern:	/accounting/transactions/journal/batch/edit/{period}/{stage}
+    defaults:	{ _controller:CoreAccountingBundle:Transactions:editBatchTransaction }
+    requirements:
+        _method:  GET|POST
+
+CoreAccountingBundle_transactions_batch_upload:
+    pattern:	/accounting/transactions/journal/batch/upload/{id}
+    defaults:	{ _controller:CoreAccountingBundle:Transactions:uploadTransaction }
+    requirements:
+        _method:  GET|POST
+        
+CoreAccountingBundle_transactions_batch_processing:
+    pattern:	/accounting/transactions/journal/batch/process/{id}
+    defaults:	{ _controller:CoreAccountingBundle:Transactions:processTransaction }
+    requirements:
+        _method:  GET|POST
+        
+CoreAccountingBundle_transactions_batch_delete:
+    pattern:	/accounting/transactions/journal/batch/delete/{id}
+    defaults:	{ _controller:CoreAccountingBundle:Transactions:deleteUpload }
+    requirements:
+        _method:  GET|POST
+
+
+### Accounting Tools
+
+
+
+### Accounting Maintenance
+
+#### Chart of Accounts
+CoreAccountingBundle_maintenance_chartmaster_show:
+    pattern:	/accounting/maintenance/chartmaster
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:showchartmaster }
+    requirements:
+        _method:  GET
+
+CoreAccountingBundle_maintenance_chartmaster_add:
+    pattern:	/accounting/maintenance/chartmaster/add
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:addchartmaster }
+    requirements:
+        _method:  GET|POST
+
+CoreAccountingBundle_maintenance_chartmaster_edit:
+    pattern:	/accounting/maintenance/chartmaster/edit/{account_id}
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:editchartmaster }
+    requirements:
+        _method:  GET|POST
+
+CoreAccountingBundle_maintenance_chartmaster_delete:
+    pattern:	/accounting/maintenance/chartmaster/delete/{account_id}
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:deletechartmaster }
+    requirements:
+        _method:  GET|POST
+
+#### Account Sections
+CoreAccountingBundle_maintenance_accountsection_show:
+    pattern:	/accounting/maintenance/accountsection
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:showaccountsection }
+    requirements:
+        _method:  GET
+
+CoreAccountingBundle_maintenance_accountsection_add:
+    pattern:	/accounting/maintenance/accountsection/add
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:addaccountsection }
+    requirements:
+        _method:  GET|POST
+
+CoreAccountingBundle_maintenance_accountsection_edit:
+    pattern:	/accounting/maintenance/accountsection/edit/{section_id}
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:editaccountsection }
+    requirements:
+        _method:  GET|POST
+
+CoreAccountingBundle_maintenance_accountsection_delete:
+    pattern:	/accounting/maintenance/accountsection/delete/{section_id}
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:deleteaccountsection }
+    requirements:
+        _method:  GET|POST
+
+
+#### Account Group
+CoreAccountingBundle_maintenance_accountgroups_show:
+    pattern:	/accounting/maintenance/accountgroups
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:showaccountgroups }
+    requirements:
+        _method:  GET
+
+CoreAccountingBundle_maintenance_accountgroups_add:
+    pattern:	/accounting/maintenance/accountgroups/add
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:addaccountgroups }
+    requirements:
+        _method:  GET|POST
+
+CoreAccountingBundle_maintenance_accountgroups_edit:
+    pattern:	/accounting/maintenance/accountgroups/edit/{group_id}
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:editaccountgroups }
+    requirements:
+        _method:  GET|POST
+
+CoreAccountingBundle_maintenance_accountgroups_delete:
+    pattern:	/accounting/maintenance/accountgroups/delete/{group_id}
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:deleteaccountgroups }
+    requirements:
+        _method:  GET|POST
+
+#### Periods
+CoreAccountingBundle_maintenance_periods_show:
+    pattern:	/accounting/maintenance/periods
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:showperiods }
+    requirements:
+        _method:  GET
+
+CoreAccountingBundle_maintenance_periods_update:
+    pattern:	/accounting/maintenance/periods/update
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:updateperiods }
+    requirements:
+        _method:  GET
+
+#### Tags
+CoreAccountingBundle_maintenance_tags_show:
+    pattern:	/accounting/maintenance/tags
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:showtags }
+    requirements:
+        _method:  GET
+
+CoreAccountingBundle_maintenance_tags_add:
+    pattern:	/accounting/maintenance/tags/add
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:addtags }
+    requirements:
+        _method:  GET|POST
+
+CoreAccountingBundle_maintenance_tags_edit:
+    pattern:	/accounting/maintenance/tags/edit/{tagref}
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:edittags }
+    requirements:
+        _method:  GET|POST
+
+CoreAccountingBundle_maintenance_tags_delete:
+    pattern:	/accounting/maintenance/tags/delete/{tagref}
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:deletetags }
+    requirements:
+        _method:  GET|POST
+
+#### Import Transaction Definitions
+CoreAccountingBundle_maintenance_importtransdefn_show:
+    pattern:	/accounting/maintenance/importtransdefn
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:showimporttransdefn }
+    requirements:
+        _method:  GET
+
+CoreAccountingBundle_maintenance_importtransdefn_add:
+    pattern:	/accounting/maintenance/importtransdefn/add
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:addimporttransdefn }
+    requirements:
+        _method:  GET|POST
+
+CoreAccountingBundle_maintenance_importtransdefn_edit:
+    pattern:	/accounting/maintenance/importtransdefn/edit/{importdefnid}
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:editimporttransdefn }
+    requirements:
+        _method:  GET|POST
+
+CoreAccountingBundle_maintenance_importtransdefn_delete:
+    pattern:	/accounting/maintenance/importtransdefn/delete/{importdefnid}
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:deleteimporttransdefn }
+    requirements:
+        _method:  GET|POST
+
+#### Budget
+CoreAccountingBundle_maintenance_budget_show:
+    pattern:	/accounting/maintenance/budget
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:showbudget }
+    requirements:
+        _method:  GET
+
+CoreAccountingBundle_maintenance_budget_edit:
+    pattern:	/accounting/maintenance/budget/edit/{account_id}
+    defaults:	{ _controller:CoreAccountingBundle:Maintenance:editbudget }
+    requirements:
+        _method:  GET|POST
+
+### Accounting Reports
+
+
+## Investments app
+CoreAccountingBundle_investments_home:
+    pattern:  /investments/index
+    defaults: { _controller: CoreAccountingBundle:Default:investments }
+    requirements:
+        _method:  GET
+
+## Assets app
+CoreAccountingBundle_assets_home:
+    pattern:  /assets/index
+    defaults: { _controller: CoreAccountingBundle:Default:assets }
+    requirements:
+        _method:  GET
+
+
+
+    

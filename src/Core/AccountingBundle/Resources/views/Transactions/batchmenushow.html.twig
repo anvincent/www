@@ -1,0 +1,215 @@
+{# src/Core/AccountingBundle/Resources/views/Transactions/batchmenushow.html.twig #}
+{% extends 'CoreAccountingBundle:Default:accounting.html.twig' %}
+
+{% block title %}Accounting - Batch Journal Entries{% endblock %}
+
+{% block navigation %}
+    {{ parent() }}
+{% endblock %}
+
+{% block headtitle %}
+Batch Journal Processing
+{% endblock %}
+
+{% block body %}
+{% for flashMessage in app.session.flashbag.get('returnMessage') %}
+<div class="row">
+	<div class="alert alert-info" role="alert">
+        {{ flashMessage }}
+    </div>
+</div>
+<!-- /.row -->
+{% endfor %}
+
+<div class="row">
+	<div class="col-lg-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Batch Journal Processing Menu
+			</div>
+			<!-- /.panel-heading -->
+			<div class="panel-body">
+            	<div class="dataTable_wrapper">
+					<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+						<thead><tr>
+							<th>Account</th>
+						</tr></thead>
+						<tbody>
+						{% for option in importoptions %}
+					    <tr>
+					    	<td class="text-right">
+					    		<div class="btn-group" role="group">
+						    		<button type="button" class="btn btn-default">{{ option.accountname }}</button>
+						    		<a class="btn btn-default" role="button" href="{{ path('CoreAccountingBundle_transactions_batch_upload',{'id':option.importdefnid}) }}">
+						    			<i class="fa fa-upload"></i>
+						    		</a>
+						    	</div>
+						    </td>
+						    <td>
+						    	{% for document in documents %}
+						    		{% if loop.parent.loop.index == document.id %}
+						    		<div class="btn-group" role="group">
+							    		<a class="btn btn-default" role="button" href="{{ path('CoreAccountingBundle_transactions_batch_processing',{'id':document.id}) }}">
+							    			<i class="fa fa-file-text-o"></i>
+							    		</a>
+							    		<a class="btn btn-default" role="button" href="{{ path('CoreAccountingBundle_transactions_batch_delete',{'id':document.id}) }}">
+							    			<i class="fa fa-trash"></i>
+							    		</a>
+							    	</div>
+						    		{% endif %}
+						    	{% endfor %}
+					    	</td>
+					    </tr>
+					    {% else %}
+					        <p>There are no definitions within the environment</p>
+					    {% endfor %}
+					    </tbody>
+					</table>
+				</div>
+				<!-- /.table-responsive -->
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Financial Account Batch
+			</div>
+			<!-- /.panel-heading -->
+			<div class="panel-body">
+				<div class="row">
+					<button type="button" class="btn btn-primary" data-toggle="modal" 
+							data-target="#monthprocstart" data-whatever="Month Start Processing">
+						Month Start
+					</button>
+				</div>
+				<div class="row">
+					<button type="button" class="btn btn-primary" data-toggle="modal" 
+							data-target="#monthprocend" data-whatever="Month End Processing">
+						Month End
+					</button>
+				</div>
+				<div class="row">
+					<button type="button" class="btn btn-primary" data-toggle="modal" 
+							data-target="#batchfile" data-whatever="File-based Batch Processing">
+						Batch File
+					</button>
+				</div>
+			</div>
+			<!-- /.panel-body for top section -->
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Investment Account Batch
+			</div>
+			<!-- /.panel-heading -->
+			<div class="panel-body">
+				<div class="row">
+					<button type="button" class="btn btn-primary" data-toggle="modal" 
+							data-target="#monthstart" data-whatever="@start">
+						Investment Batch
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /.row -->
+
+
+<div class="modal fade" id="monthprocstart" tabindex="-1" role="dialog" aria-labelledby="monthprocLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="monthprocLabel">Month Start Processing</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table table-striped table-bordered table-condensed">
+					<thead>
+						<th>Period Nbr.</th>
+						<th>Period end date</th>
+					</thead>
+					<tbody>
+					{% for period in periodrangestart %}
+						<tr>
+							<td>{{ period.periodnbr }}</td>
+							<td>{{ period.lastdate }}</td>
+							{% if loop.index0 < 3  %}
+					    	<td><button class="btn btn-default" type="submit"><i class="fa fa-check-square-o"></i></button></td>
+					    	{% else %}
+					    	<td><a class="btn btn-default" href="{{ path('CoreAccountingBundle_transactions_batch_edit',
+					    											{'period':period.periodnbr, 'stage':'start'}) }}">
+					    		<i class="fa fa-square-o"></i>
+					    	</a></td>
+					    	{% endif %}
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="monthprocend" tabindex="-1" role="dialog" aria-labelledby="monthprocLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="monthprocLabel">Month End Processing</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table table-striped table-bordered table-condensed">
+					<thead>
+						<th>Period Nbr.</th>
+						<th>Period end date</th>
+					</thead>
+					<tbody>
+					{% for period in periodrangeend %}
+						<tr>
+							<td>{{ period.periodnbr }}</td>
+							<td>{{ period.lastdate }}</td>
+							{% if loop.index0 < 3  %}
+					    	<td><button class="btn btn-default" type="submit"><i class="fa fa-check-square-o"></i></button></td>
+					    	{% else %}
+					    	<td><a class="btn btn-default" href="{{ path('CoreAccountingBundle_transactions_batch_edit',
+					    											{'period':period.periodnbr, 'stage':'end'}) }}">
+					    		<i class="fa fa-square-o"></i>
+					    	</a></td>
+					    	{% endif %}
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+{{ parent() }}
+
+<script>
+$('#monthproc').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('Initiate ' + recipient)
+})
+
+{% endblock %}

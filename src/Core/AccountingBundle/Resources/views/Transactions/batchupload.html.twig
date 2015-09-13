@@ -1,0 +1,54 @@
+{# src/Core/AccountingBundle/Resources/views/Transactions/batchmenushow.html.twig #}
+{% extends 'CoreAccountingBundle:Default:accounting.html.twig' %}
+
+{% block title %}Accounting - Batch Journal Entries{% endblock %}
+
+{% block navigation %}
+    {{ parent() }}
+{% endblock %}
+
+{% block headtitle %}
+Batch Journal Processing
+{% endblock %}
+
+{% block body %}
+{% for flashMessage in app.session.flashbag.get('returnMessage') %}
+<div class="row">
+	<div class="alert alert-info" role="alert">
+        {{ flashMessage }}
+    </div>
+</div>
+<!-- /.row -->
+{% endfor %}
+
+<div class="row">
+	<div class="col-lg-6">
+		<div class="panel panel-default">
+			{{ form_start(form, {'attr': {'class': 'form-inline'}}) }}
+			<div class="panel-heading">
+				<p>Load file for processing the {{ importname.accountname }}</p>
+			</div>
+			<!-- /.panel-heading -->
+			<div class="panel-body">
+				{{ form_widget(form.file, {'attr': {'class': 'file','id': 'attachment','data-show-preview': 'false'}}) }}
+				<div class="form-group">
+					{{ form_widget(form.Confirm, {'attr': {'class': 'btn btn-default'}}) }}
+				</div>
+			</div>
+			<div style="display: none;">
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /.row -->
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+{{ parent() }}
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{# src/Core/AccountingBundle/Resources/views/Maintenance/budgetedit.html.twig #}
+{% extends 'CoreAccountingBundle:Default:accounting.html.twig' %}
+
+{% block title %}Accounting - Budget{% endblock %}
+
+{% block navigation %}
+    {{ parent() }}
+{% endblock %}
+
+{% block headtitle %}
+Edit Budgets
+{% endblock %}
+
+{% block body %}
+
+{% for flashMessage in app.session.flashbag.get('returnMessage') %}
+<div class="row">
+	<div class="alert alert-info" role="alert">
+        {{ flashMessage }}
+    </div>
+</div>
+{% endfor %}
+{% set month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",
+	"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",
+	"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"] %}
+<div class="row">{{ form_start(form) }}
+{% for budget in form.budgets %}
+	{% if loop.index0 in [0,12,24] %}
+		{# new column #}
+		<div class="col-lg-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">Financial Year - 
+					{% if loop.index0 == 0 %}{{ year - 1 }}
+					{% elseif loop.index0 == 12 %}{{ year }}
+					{% elseif loop.index0 == 24 %}{{ year + 1 }}
+					{% endif %}
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-body">
+	            	<div class="dataTable_wrapper">
+						<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+							<thead><tr>
+								<th>Month</th>
+								<th>Actual</th>
+								<th>Budget</th>
+							</tr></thead>
+							<tbody>
+							    <tr><div class="form-group">
+								    	<td><p class="form-control-static">{{ month[loop.index0] }}</p></td>
+								    	<td><p class="form-control-static">{{ budget.actual.vars.value }}</p></td>
+							    	</div>
+							    	<td>
+							    		{{ form_errors(budget) }}
+								    	{{ form_widget(budget.budget, {'attr': {'class': 'form-control input-sm'}}) }}
+								    </td>
+								</tr>
+	{% else %}
+							    <tr><div class="form-group">
+								    	<td><p class="form-control-static">{{ month[loop.index0] }}</p></td>
+								    	<td><p class="form-control-static">{{ budget.actual.vars.value }}</p></td>
+							    	</div>
+							    	<td>
+							    		{{ form_errors(budget) }}
+								    	{{ form_widget(budget.budget, {'attr': {'class': 'form-control input-sm'}}) }}
+								    </td>
+								</tr>
+	{% endif %}
+	{% if loop.index0 in [11,23,35] %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+{% endfor %}
+<div class="form-group">
+	{{ form_widget(form.Confirm, {'attr': {'class': 'btn btn-default'}}) }}
+</div>
+<div style="display: none;">
+{{ form_end(form) }}</div></div>
+
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		
+	</script>
+    {{ parent() }}
+    
+    
+{% endblock %}
